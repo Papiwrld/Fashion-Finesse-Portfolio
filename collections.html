@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Collections | Fashion Finesse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f06292;
+        }
+        .nav-links li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .nav-links a {
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #f06292;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(to right, rgba(240, 98, 146, 0.8), rgba(156, 39, 176, 0.8)), url('collections-hero.jpg') no-repeat center center/cover;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        /* Collections Grid */
+        .collections-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .collection-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .collection-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .collection-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .collection-card h3 {
+            font-size: 1.5rem;
+            margin: 15px;
+            color: #333;
+        }
+        .collection-card p {
+            margin: 0 15px 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Fashion Finesse</div>
+        <ul class="nav-links">
+            <li><a href="Fashion Fineese.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <h1>Our Collections</h1>
+    </header>
+
+    <main class="collections-container">
+        <div class="collection-card">
+            <img src="collections pg Image/Elegant dress.jpg" alt="Elegant Dresses">
+            <h3>Elegant Dresses</h3>
+            <p>Timeless designs for every special occasion.</p>
+        </div>
+        <div class="collection-card">
+            <img src="collections pg Image/Casual.jpg" alt="Casual Wear">
+            <h3>Casual Wear</h3>
+            <p>Stay stylish and comfortable every day.</p>
+        </div>
+        <div class="collection-card">
+            <img src="collections pg Image/Accessories.jpg" alt="Accessories">
+            <h3>Accessories</h3>
+            <p>Complete your look with our chic accessories.</p>
+        </div>
+        <div class="collection-card">
+            <img src="collections pg Image/Formal Attire.jpg" alt="Formal Attire">
+            <h3>Formal Attire</h3>
+            <p>Sharp and elegant for business and events.</p>
+        </div>
+        <div class="collection-card">
+            <img src="collections pg Image/Active Wear.jpg" alt="Activewear">
+            <h3>Activewear</h3>
+            <p>Fashion meets function for your workouts.</p>
+        </div>
+        <div class="collection-card">
+            <img src="collections pg Image/Seasonal Wear.jpg" alt="Seasonal Specials">
+            <h3>Seasonal Specials</h3>
+            <p>Fresh styles for every season.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        &copy; 2024 Fashion Finesse | All rights reserved
+    </footer>
+</body>
+</html>
