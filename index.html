@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     Essential Meta Tags 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+     SEO Meta Tags 
+    <title>Fashion Finesse - Your Style, Your Statement</title>
+    <meta name="description" content="Fashion Finesse - Premium fashion destination for elegant dresses, casual wear, and stylish accessories. Express your unique style with our curated collections.">
+    <meta name="keywords" content="fashion, clothing, dresses, casual wear, accessories, style, elegant fashion">
+    <meta name="author" content="Fashion Finesse">
+    <meta name="robots" content="index, follow">
+    
+     Open Graph Meta Tags 
+    <meta property="og:title" content="Fashion Finesse - Your Style, Your Statement">
+    <meta property="og:description" content="Explore elegance with our curated fashion picks. Premium clothing and accessories for every occasion.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fashionfinesse.com">
+    
+     Favicon 
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+     Preload Critical Resources 
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+     External Fonts with Display Swap for Performance 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+     Font Awesome Icons 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+     Main Stylesheet 
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+     Skip to Main Content for Accessibility 
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+     Loading Screen 
+    <div id="loading-screen" class="loading-screen" aria-hidden="true">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading Fashion Finesse...</p>
+    </div>
+
+     Navigation Header 
+    <header class="header" id="main-header" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="nav-brand">
+                <a href="#home" class="logo" aria-label="Fashion Finesse Home">Fashion Finesse</a>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu" role="menubar">
+                <li role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
+                <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
+                <li role="none"><a href="#collections" class="nav-link" role="menuitem">Collections</a></li>
+                <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
+            </ul>
+            
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </nav>
+    </header>
+
+     Main Content 
+    <main id="main-content" role="main">
+        
+         Hero Section 
+        <section id="home" class="hero-section" role="banner">
+            <div class="hero-content">
+                <h1 class="hero-title">Your Style, Your Statement</h1>
+                <p class="hero-subtitle">Explore elegance with our curated fashion picks</p>
+                <div class="hero-actions">
+                    <a href="#collections" class="btn btn-primary">Shop Now</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+         About Section 
+        <section id="about" class="section about-section" role="region" aria-labelledby="about-title">
+            <div class="container">
+                <h2 id="about-title" class="section-title">About Fashion Finesse</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Who We Are</h3>
+                        <p>Fashion Finesse is more than a brand—it's a lifestyle. We bring you the latest trends and timeless styles that empower you to express your individuality.</p>
+                        <p>We believe in sustainability, inclusivity, and quality. Every piece we create is designed to make you feel confident, comfortable, and stylish.</p>
+                        <a href="#collections" class="btn btn-primary">Explore Collections</a>
+                    </div>
+                    <div class="about-image">
+                        <img src="Images/FF About.jpg" alt="Fashion design process showing elegant clothing" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         Collections Section 
+        <section id="collections" class="section collections-section" role="region" aria-labelledby="collections-title">
+            <div class="container">
+                <h2 id="collections-title" class="section-title">Our Collections</h2>
+                <div class="collections-grid">
+                    
+                    <article class="collection-card">
+                        <div class="card-image">
+                            <img src="Images/Elegant Dress.jpg" alt="Elegant dresses collection" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Elegant Dresses</h3>
+                            <p>Timeless designs for every special occasion. From cocktail parties to formal events.</p>
+                            <div class="card-price">From $199</div>
+                            <button class="btn-buy" onclick="handlePurchase('Elegant Dresses')" aria-label="Buy elegant dresses">
+                                Buy Now
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="collection-card">
+                        <div class="card-image">
+                            <img src="Images/Casual.jpg" alt="Casual wear collection" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Casual Wear</h3>
+                            <p>Stay stylish and comfortable every day with our versatile casual collection.</p>
+                            <div class="card-price">From $89</div>
+                            <button class="btn-buy" onclick="handlePurchase('Casual Wear')" aria-label="Buy casual wear">
+                                Buy Now
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="collection-card">
+                        <div class="card-image">
+                            <img src="Images/Accessories.jpeg" alt="Fashion accessories collection" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Accessories</h3>
+                            <p>Complete your look with our chic accessories. Bags, jewelry, and more.</p>
+                            <div class="card-price">From $49</div>
+                            <button class="btn-buy" onclick="handlePurchase('Accessories')" aria-label="Buy accessories">
+                                Buy Now
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="collection-card">
+                        <div class="card-image">
+                            <img src="collections pg Image/Formal Attire.jpg" alt="Formal attire collection" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Formal Attire</h3>
+                            <p>Sharp and elegant pieces for business and professional events.</p>
+                            <div class="card-price">From $299</div>
+                            <button class="btn-buy" onclick="handlePurchase('Formal Attire')" aria-label="Buy formal attire">
+                                Buy Now
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="collection-card">
+                        <div class="card-image">
+                            <img src="collections pg Image/Active Wear.jpg" alt="Activewear collection" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Activewear</h3>
+                            <p>Fashion meets function for your workouts and active lifestyle.</p>
+                            <div class="card-price">From $79</div>
+                            <button class="btn-buy" onclick="handlePurchase('Activewear')" aria-label="Buy activewear">
+                                Buy Now
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="collection-card">
+                        <div class="card-image">
+                            <img src="collections pg Image/Seasonal Wear.jpg" alt="Seasonal wear collection" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Seasonal Specials</h3>
+                            <p>Fresh styles for every season. Limited edition pieces you'll love.</p>
+                            <div class="card-price">From $149</div>
+                            <button class="btn-buy" onclick="handlePurchase('Seasonal Specials')" aria-label="Buy seasonal wear">
+                                Buy Now
+                            </button>
+                        </div>
+                    </article>
+                    
+                </div>
+            </div>
+        </section>
+
+         Contact Section 
+        <section id="contact" class="section contact-section" role="region" aria-labelledby="contact-title">
+            <div class="container">
+                <h2 id="contact-title" class="section-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <p>We'd love to hear from you! Reach out for questions, styling advice, or just to say hello.</p>
+                        <ul class="contact-details">
+                            <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 123 Fashion Street, Style City, SC 12345</li>
+                            <li><i class="fas fa-phone" aria-hidden="true"></i> +233 537270014</li>
+                            <li><i class="fas fa-envelope" aria-hidden="true"></i> kwesieugene77@gmail.com</li>
+                            <li><i class="fas fa-clock" aria-hidden="true"></i> Mon - Fri: 9AM - 6PM</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Follow us on Pinterest"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                    <form class="contact-form" id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="contact-name">Full Name *</label>
+                            <input type="text" id="contact-name" name="name" required aria-required="true">
+                            <span class="error-message" id="name-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address *</label>
+                            <input type="email" id="contact-email" name="email" required aria-required="true">
+                            <span class="error-message" id="email-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject</label>
+                            <input type="text" id="contact-subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message *</label>
+                            <textarea id="contact-message" name="message" required aria-required="true" placeholder="Tell us how we can help you..."></textarea>
+                            <span class="error-message" id="message-error"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+     Footer 
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fashion Finesse</h3>
+                    <p>Your ultimate destination for elegant fashion and timeless style. Express your individuality with our curated collections.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://pin.it/4id5iNuSz" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#collections">Collections</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe for updates on new collections and exclusive offers.</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" placeholder="Your email address" required aria-label="Email address for newsletter">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Fashion Finesse. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+     Back to Top Button 
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top" style="display: none;">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
+
+     Chatbot Widget 
+    <div class="chatbot-widget" id="chatbot-widget">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat assistant">
+            <i class="fas fa-comments" aria-hidden="true"></i>
+        </button>
+        <div class="chatbot-window" id="chatbot-window" role="dialog" aria-labelledby="chatbot-title" aria-hidden="true">
+            <div class="chatbot-header">
+                <h4 id="chatbot-title">Fashion Assistant</h4>
+                <p>How can I help you today?</p>
+                <button class="chatbot-close" id="chatbot-close" aria-label="Close chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages" role="log" aria-live="polite">
+                <div class="message bot-message">
+                    Hello! Welcome to Fashion Finesse! 👋 I'm here to help you find the perfect style. How can I assist you today?
+                </div>
+            </div>
+            <form class="chatbot-input" id="chatbot-form">
+                <input type="text" id="chat-input" placeholder="Type your message..." maxlength="200" aria-label="Chat message">
+                <button type="submit" aria-label="Send message">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+     JavaScript 
+    <script src="script.js"></script>
+</body>
+</html>
