@@ -1,4 +1,3 @@
-
 **Fashion Finesse – Premium Fashion Website**
 
 A modern, responsive fashion e-commerce site built with **HTML, CSS, and JavaScript**.
@@ -51,7 +50,7 @@ fashion-finesse/
 1. **Clone repo**
 
    ```bash
-   git clone https://github.com/yourusername/fashion-finesse-refined.git
+   git clone https://github.com/Papiwrld/fashion-finesse-refined.git
    ```
 2. **Open** `index.html` in a browser
    *(Optional: use VS Code Live Server for development)*
