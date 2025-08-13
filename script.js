@@ -8,6 +8,18 @@ const CONFIG = {
   CHATBOT_DELAY: 1000,
   LOADING_DURATION: 1000,
   DEBOUNCE_DELAY: 100,
+  AI: {
+    provider: "auto", // auto | ollama
+    systemPrompt:
+      "You are Fashion Finesse, a friendly and concise fashion shopping assistant. Answer helpfully about products, sizing, styling, shipping, and returns. Keep responses brief and skimmable.",
+    ollama: {
+      baseUrl: "http://localhost:11434",
+      model: "llama3.1",
+      temperature: 0.7,
+      top_p: 0.9,
+    },
+    requestTimeoutMs: 20000,
+  },
 }
 
 const SELECTORS = {
@@ -308,6 +320,7 @@ const Chatbot = {
     this.form = document.querySelector(SELECTORS.chatbotForm)
     this.input = document.querySelector(SELECTORS.chatInput)
     this.messages = document.querySelector(SELECTORS.chatMessages)
+    this.statusEl = document.getElementById("chatbot-status")
 
     // Enhanced chatbot state
     this.conversationHistory = []
@@ -316,6 +329,11 @@ const Chatbot = {
     this.isTyping = false
     this.userName = null
     this.sessionStartTime = Date.now()
+
+    // Initialize AI service
+    this.chatService = ChatService.create(CONFIG.AI)
+    this.updateStatus("checking")
+    this.checkProvider()
 
     // Enhanced responses with context awareness
     this.responses = {
@@ -506,6 +524,8 @@ const Chatbot = {
   openWindow() {
     this.window.setAttribute("aria-hidden", "false")
     this.window.style.display = "flex"
+    const toggleBtn = this.toggle
+    if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "true")
     if (this.input) {
       this.input.focus()
     }
@@ -514,9 +534,41 @@ const Chatbot = {
     this.trackEvent("chat_opened")
   },
 
+  async checkProvider() {
+    try {
+      if (this.chatService && this.chatService.health) {
+        const ok = await this.chatService.health()
+        this.updateStatus(ok ? "online" : "offline")
+      } else if (this.chatService) {
+        // Try a cheap no-op stream to detect availability
+        const iter = this.chatService.stream({ messages: [{ role: "user", content: "Hello" }] })
+        const { value } = await iter.next()
+        this.updateStatus(value !== undefined ? "online" : "offline")
+      } else {
+        this.updateStatus("offline")
+      }
+    } catch (_) {
+      this.updateStatus("offline")
+    }
+  },
+
+  updateStatus(state) {
+    if (!this.statusEl) return
+    const map = {
+      checking: { text: "AI: Checking…", className: "status checking" },
+      online: { text: "AI: Online", className: "status online" },
+      offline: { text: "AI: Fallback", className: "status offline" },
+    }
+    const cfg = map[state] || map.offline
+    this.statusEl.textContent = cfg.text
+    this.statusEl.className = `chatbot-status ${cfg.className}`
+  },
+
   closeWindow() {
     this.window.setAttribute("aria-hidden", "true")
     this.window.style.display = "none"
+    const toggleBtn = this.toggle
+    if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false")
 
     // Track chat closed
     this.trackEvent("chat_closed")
@@ -559,27 +611,8 @@ const Chatbot = {
     // Show typing indicator
     this.showTypingIndicator()
 
-    // Generate bot response with delay
-    setTimeout(
-      () => {
-        this.hideTypingIndicator()
-        const response = this.generateIntelligentResponse(message.toLowerCase())
-        this.addBotMessage(response.text)
-
-        // Show relevant quick replies
-        if (response.quickReplies) {
-          this.showQuickReplies(response.quickReplies)
-        }
-
-        // Store bot response in history
-        this.conversationHistory.push({
-          type: "bot",
-          message: response.text,
-          timestamp: Date.now(),
-        })
-      },
-      Math.random() * 1000 + 1000,
-    ) // Random delay between 1-2 seconds
+    // Generate bot response (stream if available)
+    this.generateResponse(message)
   },
 
   addUserMessage(text) {
@@ -692,21 +725,61 @@ const Chatbot = {
     this.removeQuickReplies()
     this.showTypingIndicator()
 
-    setTimeout(() => {
+    this.generateResponse(cleanReply)
+  },
+
+  async generateResponse(rawMessage) {
+    const message = rawMessage.trim()
+
+    // If provider available, use it; otherwise fallback to local patterns
+    try {
+      if (this.chatService) {
+        // Prepare history limited to last 10 exchanges
+        const history = this.conversationHistory.slice(-20).map((m) => ({
+          role: m.type === "user" ? "user" : "assistant",
+          content: m.message,
+        }))
+
+        // Create a streaming bot message container
+        const streamingEl = document.createElement("div")
+        streamingEl.className = "message bot-message"
+        streamingEl.innerHTML = ""
+        this.messages.appendChild(streamingEl)
+        this.scrollToBottom()
+
+        let accumulated = ""
+        for await (const chunk of this.chatService.stream({
+          messages: [
+            { role: "system", content: this.chatService.systemPrompt },
+            ...history,
+            { role: "user", content: message },
+          ],
+        })) {
+          accumulated += chunk
+          streamingEl.innerHTML = this.formatMessage(accumulated)
+          this.scrollToBottom()
+        }
+
       this.hideTypingIndicator()
-      const response = this.generateIntelligentResponse(cleanReply.toLowerCase())
-      this.addBotMessage(response.text)
 
-      if (response.quickReplies) {
-        this.showQuickReplies(response.quickReplies)
+        // Save final assistant message
+        this.conversationHistory.push({ type: "bot", message: accumulated, timestamp: Date.now() })
+
+        // Heuristic quick replies based on content
+        const qr = this.getRelevantQuickReplies(this.determineContext(message.toLowerCase()))
+        if (qr) this.showQuickReplies(qr)
+        return
       }
+    } catch (err) {
+      console.warn("AI provider failed, falling back to local responses:", err)
+    }
 
-      this.conversationHistory.push({
-        type: "bot",
-        message: response.text,
-        timestamp: Date.now(),
-      })
-    }, 800)
+    // Fallback: local intent-based reply
+    this.hideTypingIndicator()
+    const response = this.generateIntelligentResponse(message.toLowerCase())
+    this.addBotMessage(response.text)
+    if (response.quickReplies) this.showQuickReplies(response.quickReplies)
+    this.conversationHistory.push({ type: "bot", message: response.text, timestamp: Date.now() })
   },
 
   generateIntelligentResponse(message) {
@@ -1269,6 +1342,93 @@ const App = {
 // Make handlePurchase globally available for onclick handlers
 window.handlePurchase = (itemName) => {
   PurchaseHandler.handlePurchase(itemName)
+}
+
+// ===== CHAT SERVICE (AI PROVIDERS) =====
+const ChatService = {
+  create(config) {
+    const provider = (config && config.provider) || "auto"
+    const systemPrompt = (config && config.systemPrompt) || "You are a helpful assistant."
+
+    // Try Ollama if chosen or on auto fallback
+    if (provider === "ollama" || provider === "auto") {
+      const baseUrl = (config && config.ollama && config.ollama.baseUrl) || "http://localhost:11434"
+      const model = (config && config.ollama && config.ollama.model) || "llama3.1"
+      const temperature = (config && config.ollama && config.ollama.temperature) || 0.7
+      const top_p = (config && config.ollama && config.ollama.top_p) || 0.9
+
+      return {
+        systemPrompt,
+        async health() {
+          try {
+            const res = await fetch(`${baseUrl}/api/tags`)
+            return res.ok
+          } catch (_) {
+            return false
+          }
+        },
+        async *stream({ messages }) {
+          // If Ollama not reachable, fail fast so caller can fallback
+          const controller = new AbortController()
+          const timeout = setTimeout(() => controller.abort(), (CONFIG.AI && CONFIG.AI.requestTimeoutMs) || 20000)
+
+          const body = {
+            model,
+            stream: true,
+            options: { temperature, top_p },
+            messages,
+          }
+
+          let response
+          try {
+            response = await fetch(`${baseUrl}/api/chat`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+              signal: controller.signal,
+            })
+          } catch (e) {
+            clearTimeout(timeout)
+            throw new Error("Failed to reach Ollama server. Ensure Ollama is running: ollama serve")
+          }
+
+          clearTimeout(timeout)
+
+          if (!response.ok || !response.body) {
+            throw new Error(`Ollama error: ${response.status}`)
+          }
+
+          const reader = response.body.getReader()
+          const decoder = new TextDecoder()
+          let buffer = ""
+
+          while (true) {
+            const { value, done } = await reader.read()
+            if (done) break
+            buffer += decoder.decode(value, { stream: true })
+
+            // Ollama streams JSON lines per chunk
+            const lines = buffer.split("\n")
+            buffer = lines.pop() || ""
+            for (const line of lines) {
+              if (!line.trim()) continue
+              try {
+                const event = JSON.parse(line)
+                if (event.message && event.message.content) {
+                  yield event.message.content
+                }
+              } catch (err) {
+                // Ignore malformed lines
+              }
+            }
+          }
+        },
+      }
+    }
+
+    // If no provider usable, return null to trigger fallback
+    return null
+  },
 }
 
 // ===== INITIALIZE APPLICATION =====

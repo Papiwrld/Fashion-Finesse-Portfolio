@@ -60,6 +60,15 @@
   --z-modal: 1040;
   --z-popover: 1050;
   --z-tooltip: 1060;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-bg-strong: rgba(255, 255, 255, 0.25);
+  --glass-dark-bg: rgba(0, 0, 0, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  --blur-sm: 8px;
+  --blur-md: 12px;
 }
 
 /* ===== RESET AND BASE STYLES ===== */
@@ -240,16 +249,18 @@ ol {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--box-shadow);
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   z-index: var(--z-fixed);
   transition: all var(--transition-normal);
 }
 
 .header.scrolled {
-  background: rgba(0, 0, 0, 0.9);
+  background: var(--glass-dark-bg);
+  border-bottom-color: rgba(255, 255, 255, 0.15);
 }
 
 .navbar {
@@ -358,9 +369,9 @@ ol {
 }
 
 .btn-primary {
-  background: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
   color: white;
-  box-shadow: 0 4px 15px rgba(240, 98, 146, 0.3);
+  box-shadow: 0 8px 20px rgba(240, 98, 146, 0.35);
 }
 
 .btn-primary:hover,
@@ -371,9 +382,10 @@ ol {
 }
 
 .btn-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.15);
   color: white;
-  border: 2px solid white;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--blur-sm));
 }
 
 .btn-secondary:hover,
@@ -443,7 +455,7 @@ ol {
   justify-content: center;
   text-align: center;
   color: white;
-  background: linear-gradient(135deg, rgba(240, 98, 146, 0.8), rgba(156, 39, 176, 0.8)), url("fashion-hero.jpg")
+  background: linear-gradient(135deg, rgba(240, 98, 146, 0.65), rgba(156, 39, 176, 0.65)), url("fashion-hero.jpg")
     no-repeat center center / cover;
   padding: var(--spacing-xl);
 }
@@ -451,6 +463,13 @@ ol {
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border-radius: 20px;
+  padding: var(--spacing-2xl);
+  box-shadow: var(--glass-shadow);
 }
 
 .hero-title {
@@ -517,10 +536,13 @@ ol {
 }
 
 .collection-card {
-  background: var(--background-primary);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
   border-radius: var(--border-radius-lg);
   overflow: hidden;
-  box-shadow: var(--box-shadow);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   transition: all var(--transition-normal);
 }
 
@@ -547,6 +569,7 @@ ol {
 
 .card-content {
   padding: var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .card-content h3 {
@@ -815,9 +838,12 @@ ol {
   right: 0;
   width: 350px;
   height: 450px;
-  background: var(--background-primary);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--box-shadow-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   display: none;
   flex-direction: column;
   overflow: hidden;
@@ -836,6 +862,32 @@ ol {
   position: relative;
 }
 
+.chatbot-status {
+  position: absolute;
+  left: var(--spacing-md);
+  top: var(--spacing-md);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.chatbot-status.status.online {
+  background: rgba(34, 197, 94, 0.18);
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+.chatbot-status.status.offline {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+.chatbot-status.status.checking {
+  background: rgba(255, 255, 255, 0.18);
+}
+
 .chatbot-close {
   position: absolute;
   top: var(--spacing-md);
@@ -852,7 +904,7 @@ ol {
   flex: 1;
   padding: var(--spacing-lg);
   overflow-y: auto;
-  background: var(--background-secondary);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .message {
@@ -865,13 +917,13 @@ ol {
 }
 
 .bot-message {
-  background: #e3f2fd;
+  background: rgba(227, 242, 253, 0.75);
   color: var(--text-primary);
   align-self: flex-start;
 }
 
 .user-message {
-  background: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
   color: white;
   align-self: flex-end;
   margin-left: auto;
